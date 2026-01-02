@@ -1,0 +1,196 @@
+:root {
+    --bg-color: #121212;
+    --calc-bg: #1e1e24;
+    --display-color: #ffffff;
+    --btn-bg: #2b2b36;
+    --btn-color: #f0f0f0;
+    --btn-hover: #3a3a45;
+    --accent-color: #ff5e6c;
+    --accent-hover: #ff7b87;
+    --secondary-accent: #4a90e2;
+    --secondary-hover: #5aa1f2;
+    --shadow-light: rgba(255, 255, 255, 0.05);
+    --shadow-dark: rgba(0, 0, 0, 0.3);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.calculator-container {
+    perspective: 1000px;
+}
+
+.calculator {
+    background: var(--calc-bg);
+    border-radius: 30px;
+    box-shadow: 20px 20px 60px var(--shadow-dark),
+                -5px -5px 15px var(--shadow-light);
+    padding: 25px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+    animation: fadeIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.display-container {
+    background: #00000022;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 120px;
+    box-shadow: inset 5px 5px 10px rgba(0,0,0,0.2),
+                inset -5px -5px 10px rgba(255,255,255,0.02);
+    margin-bottom: 10px;
+}
+
+.display-previous {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.2rem;
+    min-height: 24px;
+    margin-bottom: 5px;
+    font-weight: 300;
+}
+
+.display-current {
+    color: var(--display-color);
+    font-size: 3rem;
+    font-weight: 600;
+    word-wrap: break-word;
+    word-break: break-all;
+    line-height: 1;
+}
+
+.buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px;
+}
+
+.btn {
+    appearance: none;
+    border: none;
+    outline: none;
+    background: var(--btn-bg);
+    color: var(--btn-color);
+    font-size: 1.5rem;
+    font-weight: 400;
+    border-radius: 18px;
+    cursor: pointer;
+    padding: 20px 0;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.2),
+                -2px -2px 5px rgba(255,255,255,0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease-out, height 0.3s ease-out;
+}
+
+.btn:active::after {
+    width: 200%;
+    height: 200%;
+}
+
+.btn:hover {
+    background: var(--btn-hover);
+    transform: translateY(-2px);
+    box-shadow: 7px 7px 15px rgba(0,0,0,0.25),
+                -3px -3px 8px rgba(255,255,255,0.08);
+}
+
+.btn:active {
+    transform: translateY(1px) scale(0.97);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.span-two {
+    grid-column: span 2;
+}
+
+.operator-btn {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.operator-btn:hover {
+    color: var(--accent-hover);
+}
+
+.action-btn {
+    color: var(--secondary-accent);
+}
+
+.equals-btn {
+    background: var(--accent-color);
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 94, 108, 0.4);
+}
+
+.equals-btn:hover {
+    background: var(--accent-hover);
+    box-shadow: 0 6px 20px rgba(255, 94, 108, 0.6);
+}
+
+/* Responsive adjustments */
+@media (max-width: 400px) {
+    .calculator {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        justify-content: flex-end;
+        padding-bottom: 40px;
+    }
+    
+    .display-container {
+        flex-grow: 1;
+        background: transparent;
+        box-shadow: none;
+        align-items: flex-end;
+    }
+
+    .display-current {
+        font-size: 4rem;
+    }
+}
